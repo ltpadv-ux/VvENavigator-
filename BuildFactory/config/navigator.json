@@ -3,7 +3,7 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Master Engine",
-    "build": "0.2.0"
+    "build": "0.4.0"
   },
   "modules": [
     "Finance Engine",
@@ -11,11 +11,14 @@
     "Risk Engine",
     "Dashboard Engine",
     "Report Engine",
-    "Power BI Export"
+    "Power BI Export",
+    "Excel Master Workbook"
   ],
   "defaults": {
     "inflation_rate": 0.04,
+    "discount_rate": 0.03,
     "planning_horizon_years": 30,
-    "currency": "EUR"
+    "currency": "EUR",
+    "apartments": 34
   }
 }
