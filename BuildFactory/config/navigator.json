@@ -3,10 +3,10 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Master Engine",
-    "build": "1.5.0"
+    "build": "1.6.0"
   },
   "modules": [
-    "Finance Engine", "Financial Cockpit", "MJOP Engine", "Risk Engine", "Decision Engine", "Governance & ALV Engine", "Dashboard Engine",
+    "Finance Engine", "Financial Cockpit", "MJOP Engine", "Risk Engine", "Decision Engine", "Governance & ALV Engine", "Action & Execution Engine", "Dashboard Engine",
     "Report Engine", "DataHub", "Scenario Engine", "Power BI Export", "Excel Master Workbook"
   ],
   "defaults": {
@@ -30,6 +30,14 @@
     "alv_proposals": true,
     "track_financial_impact": true
   },
+  "execution": {
+    "enabled": true,
+    "statuses": ["OPEN", "LOPEND", "VERTRAAGD", "BLOKKADE", "GEREED", "GESTOPT"],
+    "traffic_lights": ["GROEN", "GEEL", "ORANJE", "ROOD"],
+    "track_budget": true,
+    "track_progress": true,
+    "track_deadlines": true
+  },
   "dashboard": {
     "name": "Bestuur Cockpit",
     "vni_weight_reserve": 0.35,
@@ -42,7 +50,7 @@
   "export": {"schema_version": "1.0", "formats": ["JSON", "CSV", "Excel", "Power BI"], "flat_data_contract": true},
   "excel_master": {
     "enabled": true,
-    "sheets": ["Dashboard", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Besluiten", "ALV & Governance", "Instellingen", "Rapportage", "Scenario's", "Export"]
+    "sheets": ["Dashboard", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Besluiten", "ALV & Governance", "Acties & Uitvoering", "Instellingen", "Rapportage", "Scenario's", "Export"]
   },
   "scenarios": {"enabled": true, "default_set": "Basis-Duurzaam-Versneld"},
   "financial_cockpit": {
