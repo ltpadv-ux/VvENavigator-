@@ -6,9 +6,10 @@ ROOT=Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT/"src"))
 from production_orchestrator import run_production_release
 from production_verification import verify_production_result
+from verification_diagnostics import diagnose_verification
 
 def main()->int:
- p=argparse.ArgumentParser(description="VvE Navigator 4.1 Production Verification")
+ p=argparse.ArgumentParser(description="VvE Navigator 4.2 Production Verification & Diagnostics")
  p.add_argument("dataset",nargs="?",default=str(ROOT/"data"/"sample_vve_34.json")); p.add_argument("--output",default=str(ROOT/"artifacts"/"verification")); p.add_argument("--horizon",type=int,default=30)
- a=p.parse_args(); release=run_production_release(a.dataset,a.output,horizon_years=a.horizon); verification=verify_production_result(release); print(json.dumps({"release":release,"verification":verification},ensure_ascii=False,indent=2)); return 0 if verification["verified"] else 2
+ a=p.parse_args(); release=run_production_release(a.dataset,a.output,horizon_years=a.horizon); verification=verify_production_result(release); diagnostics=diagnose_verification(verification,release); print(json.dumps({"release":release,"verification":verification,"diagnostics":diagnostics},ensure_ascii=False,indent=2)); return 0 if verification["verified"] else 2
 if __name__=="__main__": raise SystemExit(main())
