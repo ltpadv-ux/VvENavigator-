@@ -1,4 +1,4 @@
-"""Enterprise core for VvE Navigator 2.1.0."""
+"""Enterprise core for VvE Navigator 2.2.0."""
 from __future__ import annotations
 
 from dataclasses import dataclass, asdict
@@ -7,9 +7,10 @@ from typing import Any
 
 from release_engine import run_release
 from release_manifest import create_manifest
+from health_engine import enterprise_health
 
 
-ENTERPRISE_VERSION = "2.1.0"
+ENTERPRISE_VERSION = "2.2.0"
 
 
 @dataclass(frozen=True)
@@ -25,7 +26,7 @@ def run_enterprise(dataset_path: str, profile: ReleaseProfile | None = None) -> 
     profile = profile or ReleaseProfile()
     dataset = Path(dataset_path)
     if not dataset.exists():
-        return {
+        result = {
             "enterprise_version": ENTERPRISE_VERSION,
             "release_profile": asdict(profile),
             "status": "ERROR",
@@ -33,11 +34,13 @@ def run_enterprise(dataset_path: str, profile: ReleaseProfile | None = None) -> 
             "release": {},
             "manifest": {},
         }
+        result["health"] = enterprise_health(result)
+        return result
 
     try:
         release = run_release(str(dataset), horizon_years=profile.horizon_years)
     except Exception as exc:
-        return {
+        result = {
             "enterprise_version": ENTERPRISE_VERSION,
             "release_profile": asdict(profile),
             "status": "ERROR",
@@ -45,6 +48,8 @@ def run_enterprise(dataset_path: str, profile: ReleaseProfile | None = None) -> 
             "release": {},
             "manifest": {},
         }
+        result["health"] = enterprise_health(result)
+        return result
 
     quality = release.get("quality_gate", {})
     can_publish = bool(quality.get("can_publish", False))
@@ -69,7 +74,7 @@ def run_enterprise(dataset_path: str, profile: ReleaseProfile | None = None) -> 
         release,
     )
 
-    return {
+    result = {
         "enterprise_version": ENTERPRISE_VERSION,
         "release_profile": asdict(profile),
         "status": status,
@@ -77,3 +82,5 @@ def run_enterprise(dataset_path: str, profile: ReleaseProfile | None = None) -> 
         "release": release,
         "manifest": manifest,
     }
+    result["health"] = enterprise_health(result)
+    return result
