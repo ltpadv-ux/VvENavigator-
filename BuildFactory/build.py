@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "1.9.0"
+VERSION = "2.0.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -33,6 +33,8 @@ def cmd_doctor() -> int:
     checks = {
         "config": CONFIG.exists(), "python": True, "source": (ROOT / "src").exists(),
         "tests": (ROOT / "tests").exists(), "data": (ROOT / "data").exists(),
+        "enterprise_core": (ROOT / "src" / "enterprise_core.py").exists(),
+        "production_entrypoint": (ROOT / "run_enterprise.py").exists(),
         "mjop_engine": (ROOT / "src" / "mjop_engine.py").exists(),
         "finance_engine": (ROOT / "src" / "finance_engine.py").exists(),
         "financial_cockpit": (ROOT / "src" / "financial_cockpit.py").exists(),
@@ -43,9 +45,12 @@ def cmd_doctor() -> int:
         "audit_engine": (ROOT / "src" / "audit_engine.py").exists(),
         "compliance_engine": (ROOT / "src" / "compliance_engine.py").exists(),
         "release_engine": (ROOT / "src" / "release_engine.py").exists(),
-        "dashboard_engine": (ROOT / "src" / "dashboard_engine.py").exists(), "report_engine": (ROOT / "src" / "report_engine.py").exists(),
-        "datahub": (ROOT / "src" / "datahub.py").exists(), "export_engine": (ROOT / "src" / "export_engine.py").exists(),
-        "excel_master": (ROOT / "src" / "excel_master.py").exists(), "navigator_mvp": (ROOT / "src" / "navigator_mvp.py").exists(),
+        "dashboard_engine": (ROOT / "src" / "dashboard_engine.py").exists(),
+        "report_engine": (ROOT / "src" / "report_engine.py").exists(),
+        "datahub": (ROOT / "src" / "datahub.py").exists(),
+        "export_engine": (ROOT / "src" / "export_engine.py").exists(),
+        "excel_master": (ROOT / "src" / "excel_master.py").exists(),
+        "navigator_mvp": (ROOT / "src" / "navigator_mvp.py").exists(),
         "scenario_engine": (ROOT / "src" / "scenario_engine.py").exists(),
         "practice_dataset": (ROOT / "src" / "practice_dataset.py").exists(),
         "sample_vve_34": (ROOT / "data" / "sample_vve_34.json").exists(),
@@ -57,7 +62,12 @@ def cmd_doctor() -> int:
 
 def cmd_status() -> int:
     config = load_config()
-    print(json.dumps({"version": VERSION, "project": config.get("project", {}), "modules": config.get("modules", [])}, indent=2, ensure_ascii=False))
+    print(json.dumps({
+        "version": VERSION,
+        "project": config.get("project", {}),
+        "enterprise": config.get("enterprise", {}),
+        "modules": config.get("modules", []),
+    }, indent=2, ensure_ascii=False))
     return 0
 
 
