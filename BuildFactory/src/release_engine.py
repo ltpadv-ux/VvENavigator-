@@ -20,6 +20,10 @@ def run_release(dataset_path: str, horizon_years: int = 30) -> dict[str, Any]:
         inflation_rate=practice.get("inflation_rate", 0.04),
     )
 
+    # The dashboard currently exposes short action labels, not full Decision
+    # records. Only structured decisions should enter the compliance validator.
+    structured_decisions: list[dict[str, Any]] = []
+
     quality = quality_gate(
         mjop_rows=mvp.get("mjop", []),
         reserve_rows=[
@@ -28,7 +32,7 @@ def run_release(dataset_path: str, horizon_years: int = 30) -> dict[str, Any]:
                 "reserve_closing": practice["reserve_fund"],
             }
         ],
-        decisions=mvp.get("dashboard", {}).get("top_actions", []),
+        decisions=structured_decisions,
     )
 
     return {
