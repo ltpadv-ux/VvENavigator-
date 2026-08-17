@@ -3,7 +3,7 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Master Engine",
-    "build": "0.4.0"
+    "build": "0.5.0"
   },
   "modules": [
     "Finance Engine",
@@ -20,5 +20,10 @@
     "planning_horizon_years": 30,
     "currency": "EUR",
     "apartments": 34
+  },
+  "risk": {
+    "critical_threshold": 75,
+    "high_threshold": 50,
+    "normal_threshold": 25
   }
 }
