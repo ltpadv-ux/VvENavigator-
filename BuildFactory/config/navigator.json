@@ -1,0 +1,21 @@
+{
+  "project": {
+    "name": "VvE Navigator",
+    "country": "Nederland",
+    "architecture": "Master Engine",
+    "build": "0.2.0"
+  },
+  "modules": [
+    "Finance Engine",
+    "MJOP Engine",
+    "Risk Engine",
+    "Dashboard Engine",
+    "Report Engine",
+    "Power BI Export"
+  ],
+  "defaults": {
+    "inflation_rate": 0.04,
+    "planning_horizon_years": 30,
+    "currency": "EUR"
+  }
+}
