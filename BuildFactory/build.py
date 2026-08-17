@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "1.7.0"
+VERSION = "1.8.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -41,6 +41,7 @@ def cmd_doctor() -> int:
         "governance_engine": (ROOT / "src" / "governance_engine.py").exists(),
         "action_engine": (ROOT / "src" / "action_engine.py").exists(),
         "audit_engine": (ROOT / "src" / "audit_engine.py").exists(),
+        "compliance_engine": (ROOT / "src" / "compliance_engine.py").exists(),
         "dashboard_engine": (ROOT / "src" / "dashboard_engine.py").exists(), "report_engine": (ROOT / "src" / "report_engine.py").exists(),
         "datahub": (ROOT / "src" / "datahub.py").exists(), "export_engine": (ROOT / "src" / "export_engine.py").exists(),
         "excel_master": (ROOT / "src" / "excel_master.py").exists(), "navigator_mvp": (ROOT / "src" / "navigator_mvp.py").exists(),
