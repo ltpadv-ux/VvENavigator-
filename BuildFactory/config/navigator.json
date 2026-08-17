@@ -2,11 +2,11 @@
   "project": {
     "name": "VvE Navigator",
     "country": "Nederland",
-    "architecture": "Master Engine",
-    "build": "1.9.0"
+    "architecture": "Enterprise Master Engine",
+    "build": "2.0.0"
   },
   "modules": [
-    "Finance Engine", "Financial Cockpit", "MJOP Engine", "Risk Engine", "Decision Engine", "Governance & ALV Engine", "Action & Execution Engine", "Audit & Control Engine", "Compliance & Quality Engine", "Integration & Release Engine", "Dashboard Engine",
+    "Enterprise Core", "Finance Engine", "Financial Cockpit", "MJOP Engine", "Risk Engine", "Decision Engine", "Governance & ALV Engine", "Action & Execution Engine", "Audit & Control Engine", "Compliance & Quality Engine", "Integration & Release Engine", "Dashboard Engine",
     "Report Engine", "DataHub", "Scenario Engine", "Power BI Export", "Excel Master Workbook"
   ],
   "defaults": {
@@ -15,6 +15,15 @@
     "planning_horizon_years": 30,
     "currency": "EUR",
     "apartments": 34
+  },
+  "enterprise": {
+    "enabled": true,
+    "version": "2.0.0",
+    "production_entrypoint": "run_enterprise.py",
+    "default_profile": "production",
+    "require_quality_gate": true,
+    "require_publishable": true,
+    "single_release_contract": true
   },
   "risk": {"critical_threshold": 75, "high_threshold": 50, "normal_threshold": 25},
   "decision": {
@@ -72,7 +81,7 @@
   "export": {"schema_version": "1.0", "formats": ["JSON", "CSV", "Excel", "Power BI"], "flat_data_contract": true},
   "excel_master": {
     "enabled": true,
-    "sheets": ["Dashboard", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Besluiten", "ALV & Governance", "Acties & Uitvoering", "Audit & Control", "Compliance & Quality", "Release", "Instellingen", "Rapportage", "Scenario's", "Export"]
+    "sheets": ["Dashboard", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Besluiten", "ALV & Governance", "Acties & Uitvoering", "Audit & Control", "Compliance & Quality", "Release", "Enterprise", "Instellingen", "Rapportage", "Scenario's", "Export"]
   },
   "scenarios": {"enabled": true, "default_set": "Basis-Duurzaam-Versneld"},
   "financial_cockpit": {
