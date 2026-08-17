@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "0.9.0"
+VERSION = "1.0.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -43,6 +43,7 @@ def cmd_doctor() -> int:
         "datahub": (ROOT / "src" / "datahub.py").exists(),
         "export_engine": (ROOT / "src" / "export_engine.py").exists(),
         "excel_master": (ROOT / "src" / "excel_master.py").exists(),
+        "navigator_mvp": (ROOT / "src" / "navigator_mvp.py").exists(),
     }
     for name, ok in checks.items():
         print(f"[{'OK' if ok else 'FAIL'}] {name}")
