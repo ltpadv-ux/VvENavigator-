@@ -3,7 +3,7 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Master Engine",
-    "build": "0.6.0"
+    "build": "0.7.0"
   },
   "modules": [
     "Finance Engine",
@@ -33,5 +33,11 @@
     "vni_weight_risk": 0.25,
     "vni_weight_condition": 0.15,
     "top_actions": 3
+  },
+  "reporting": {
+    "board_report": true,
+    "alv_report": true,
+    "planning_horizon_years": 30,
+    "top_decisions": 3
   }
 }
