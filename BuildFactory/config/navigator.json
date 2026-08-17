@@ -3,10 +3,10 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Enterprise Master Engine",
-    "build": "2.6.0"
+    "build": "2.7.0"
   },
   "modules": [
-    "Finance Engine", "Financial Cockpit", "Forecast & Predictive Engine", "Stress Test & Monte Carlo Engine", "MJOP Engine", "Risk Engine", "Decision Engine", "Governance & ALV Engine", "Action & Execution Engine", "Audit & Control Engine", "Compliance & Quality Engine", "Integration & Release Engine", "Enterprise Core", "Release Manifest", "Observability & Health Engine", "Configuration & Policy Engine", "Portfolio Engine", "Dashboard Engine", "Report Engine", "DataHub", "Scenario Engine", "Power BI Export", "Excel Master Workbook"
+    "Finance Engine", "Financial Cockpit", "Forecast & Predictive Engine", "Stress Test & Monte Carlo Engine", "Optimization Engine", "MJOP Engine", "Risk Engine", "Decision Engine", "Governance & ALV Engine", "Action & Execution Engine", "Audit & Control Engine", "Compliance & Quality Engine", "Integration & Release Engine", "Enterprise Core", "Release Manifest", "Observability & Health Engine", "Configuration & Policy Engine", "Portfolio Engine", "Dashboard Engine", "Report Engine", "DataHub", "Scenario Engine", "Power BI Export", "Excel Master Workbook"
   ],
   "defaults": {
     "inflation_rate": 0.04,
@@ -21,17 +21,18 @@
   "execution": {"enabled": true, "statuses": ["OPEN", "LOPEND", "VERTRAAGD", "BLOKKADE", "GEREED", "GESTOPT"], "traffic_lights": ["GROEN", "GEEL", "ORANJE", "ROOD"], "track_budget": true, "track_progress": true, "track_deadlines": true},
   "audit": {"enabled": true, "require_actor": true, "require_reason": true, "timestamp_utc": true, "track": ["DECISION", "BUDGET_MUTATION", "EXECUTION", "CONFIG_CHANGE", "DATA_CHANGE"], "immutable_event_model": true},
   "compliance": {"enabled": true, "publication_gate": true, "block_on_missing_fields": true, "block_on_negative_reserve": true, "block_on_invalid_condition": true, "block_on_incomplete_decisions": true},
-  "release": {"enabled": true, "pipeline": ["Dataset", "MJOP", "Finance", "Forecast", "Stress Test", "Risk", "Decision", "Governance", "Execution", "Audit", "Compliance", "Dashboard", "Reporting", "Export"], "require_quality_gate": true, "release_package": true, "manifest": true, "regression_fingerprint": true},
-  "enterprise": {"enabled": true, "profile": "production", "version": "2.6.0", "ci": "GitHub Actions", "fail_safe_errors": true, "require_manifest": true, "observability": true, "policy_profiles": true, "portfolio": true, "predictive_forecast": true, "monte_carlo_stress": true},
+  "release": {"enabled": true, "pipeline": ["Dataset", "MJOP", "Finance", "Forecast", "Stress Test", "Optimization", "Risk", "Decision", "Governance", "Execution", "Audit", "Compliance", "Dashboard", "Reporting", "Export"], "require_quality_gate": true, "release_package": true, "manifest": true, "regression_fingerprint": true},
+  "enterprise": {"enabled": true, "profile": "production", "version": "2.7.0", "ci": "GitHub Actions", "fail_safe_errors": true, "require_manifest": true, "observability": true, "policy_profiles": true, "portfolio": true, "predictive_forecast": true, "monte_carlo_stress": true, "optimization": true},
   "health": {"enabled": true, "statuses": ["HEALTHY", "DEGRADED", "CRITICAL"], "checks": ["release", "manifest", "quality_gate"], "include_warnings": true, "health_score": true},
   "policy": {"enabled": true, "default_profile": "standard_vve", "directory": "config/policies", "configurable": ["inflation_rate", "discount_rate", "horizon_years", "reserve_floor", "risk_thresholds", "quality_gate", "publishability", "scenario_set"]},
   "portfolio": {"enabled": true, "metrics": ["vni", "reserve_fund", "risk_score", "mjop_pressure", "health_score", "investment_need"], "priority_count": 5, "compare_publishability": true},
   "forecast": {"enabled": true, "lookahead_years": 5, "levels": ["STABIEL", "AANDACHT", "WAARSCHUWING", "KRITIEK"], "signals": ["reserve_floor", "negative_reserve", "mjop_peak", "risk_score"], "early_warning": true},
   "stress_test": {"enabled": true, "method": "Monte Carlo", "default_simulations": 1000, "seeded_reproducibility": true, "uncertainties": ["inflation", "cost_overrun", "delay", "unexpected_costs"], "risk_levels": ["BEHEERSBAAR", "AANDACHT", "HOOG", "KRITIEK"], "outputs": ["deficit_probability", "p10", "p50", "p90", "yearly_deficit_probability"]},
+  "optimization": {"enabled": true, "target_deficit_probability": 0.05, "optimize": ["annual_contribution", "reserve_buffer"], "objective": "minimum_total_financing_cost", "default_simulations": 500},
   "dashboard": {"name": "Bestuur Cockpit", "vni_weight_reserve": 0.35, "vni_weight_mjop": 0.25, "vni_weight_risk": 0.25, "vni_weight_condition": 0.15, "top_actions": 3},
   "reporting": {"board_report": true, "alv_report": true, "planning_horizon_years": 30, "top_decisions": 3},
   "export": {"schema_version": "1.0", "formats": ["JSON", "CSV", "Excel", "Power BI"], "flat_data_contract": true},
-  "excel_master": {"enabled": true, "sheets": ["Dashboard", "Portfolio", "Forecast", "Stress Test", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Besluiten", "ALV & Governance", "Acties & Uitvoering", "Audit & Control", "Compliance & Quality", "Release", "Health", "Beleid & Configuratie", "Instellingen", "Rapportage", "Scenario's", "Export"]},
+  "excel_master": {"enabled": true, "sheets": ["Dashboard", "Portfolio", "Forecast", "Stress Test", "Optimalisatie", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Besluiten", "ALV & Governance", "Acties & Uitvoering", "Audit & Control", "Compliance & Quality", "Release", "Health", "Beleid & Configuratie", "Instellingen", "Rapportage", "Scenario's", "Export"]},
   "scenarios": {"enabled": true, "default_set": "Basis-Duurzaam-Versneld"},
   "financial_cockpit": {"enabled": true, "reserve_interest": 0.01, "contribution_growth": 0.02, "operating_cost_growth": 0.02, "liquidity_alert_below_zero": true}
 }
