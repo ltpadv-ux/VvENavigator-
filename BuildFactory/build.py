@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "3.3.0"
+VERSION = "3.4.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -37,6 +37,7 @@ def cmd_doctor() -> int:
         "executive_cockpit": (ROOT / "src" / "executive_cockpit.py").exists(),
         "executive_reporting": (ROOT / "src" / "executive_reporting.py").exists(),
         "publication_engine": (ROOT / "src" / "publication_engine.py").exists(),
+        "document_renderer": (ROOT / "src" / "document_renderer.py").exists(),
         "enterprise_core": (ROOT / "src" / "enterprise_core.py").exists(),
         "release_manifest": (ROOT / "src" / "release_manifest.py").exists(),
         "health_engine": (ROOT / "src" / "health_engine.py").exists(),
@@ -85,6 +86,7 @@ def cmd_status() -> int:
         "executive_cockpit": config.get("executive_cockpit", {}),
         "executive_reporting": config.get("executive_reporting", {}),
         "publication": config.get("publication", {}),
+        "document_rendering": config.get("document_rendering", {}),
         "enterprise": config.get("enterprise", {}),
         "health": config.get("health", {}),
         "policy": config.get("policy", {}),
