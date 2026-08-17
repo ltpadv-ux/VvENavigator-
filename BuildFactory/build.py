@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -34,7 +34,9 @@ def cmd_doctor() -> int:
         "config": CONFIG.exists(), "python": True, "source": (ROOT / "src").exists(),
         "tests": (ROOT / "tests").exists(), "data": (ROOT / "data").exists(),
         "enterprise_core": (ROOT / "src" / "enterprise_core.py").exists(),
+        "release_manifest": (ROOT / "src" / "release_manifest.py").exists(),
         "production_entrypoint": (ROOT / "run_enterprise.py").exists(),
+        "enterprise_ci": (ROOT.parent / ".github" / "workflows" / "enterprise-ci.yml").exists(),
         "mjop_engine": (ROOT / "src" / "mjop_engine.py").exists(),
         "finance_engine": (ROOT / "src" / "finance_engine.py").exists(),
         "financial_cockpit": (ROOT / "src" / "financial_cockpit.py").exists(),
