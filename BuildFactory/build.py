@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "2.1.0"
+VERSION = "2.2.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -35,6 +35,7 @@ def cmd_doctor() -> int:
         "tests": (ROOT / "tests").exists(), "data": (ROOT / "data").exists(),
         "enterprise_core": (ROOT / "src" / "enterprise_core.py").exists(),
         "release_manifest": (ROOT / "src" / "release_manifest.py").exists(),
+        "health_engine": (ROOT / "src" / "health_engine.py").exists(),
         "production_entrypoint": (ROOT / "run_enterprise.py").exists(),
         "enterprise_ci": (ROOT.parent / ".github" / "workflows" / "enterprise-ci.yml").exists(),
         "mjop_engine": (ROOT / "src" / "mjop_engine.py").exists(),
@@ -68,6 +69,7 @@ def cmd_status() -> int:
         "version": VERSION,
         "project": config.get("project", {}),
         "enterprise": config.get("enterprise", {}),
+        "health": config.get("health", {}),
         "modules": config.get("modules", []),
     }, indent=2, ensure_ascii=False))
     return 0
