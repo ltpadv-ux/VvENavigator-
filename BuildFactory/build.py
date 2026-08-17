@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "2.2.0"
+VERSION = "2.3.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -23,7 +23,7 @@ def cmd_version() -> int:
 
 
 def cmd_init() -> int:
-    for directory in (ROOT / "config", ROOT / "src", ROOT / "tests", ROOT / "data"):
+    for directory in (ROOT / "config", ROOT / "config" / "policies", ROOT / "src", ROOT / "tests", ROOT / "data"):
         directory.mkdir(parents=True, exist_ok=True)
     print("BuildFactory initialized")
     return 0
@@ -36,6 +36,9 @@ def cmd_doctor() -> int:
         "enterprise_core": (ROOT / "src" / "enterprise_core.py").exists(),
         "release_manifest": (ROOT / "src" / "release_manifest.py").exists(),
         "health_engine": (ROOT / "src" / "health_engine.py").exists(),
+        "policy_engine": (ROOT / "src" / "policy_engine.py").exists(),
+        "policy_profiles": (ROOT / "config" / "policies").exists(),
+        "standard_policy": (ROOT / "config" / "policies" / "standard_vve.json").exists(),
         "production_entrypoint": (ROOT / "run_enterprise.py").exists(),
         "enterprise_ci": (ROOT.parent / ".github" / "workflows" / "enterprise-ci.yml").exists(),
         "mjop_engine": (ROOT / "src" / "mjop_engine.py").exists(),
@@ -70,6 +73,7 @@ def cmd_status() -> int:
         "project": config.get("project", {}),
         "enterprise": config.get("enterprise", {}),
         "health": config.get("health", {}),
+        "policy": config.get("policy", {}),
         "modules": config.get("modules", []),
     }, indent=2, ensure_ascii=False))
     return 0
