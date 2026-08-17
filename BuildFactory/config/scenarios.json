@@ -1,0 +1,7 @@
+{
+  "scenarios": [
+    {"name": "Basis", "cost_factor": 1.0, "energy_saving": 0.0, "co2_reduction": 0.0, "start_shift_years": 0},
+    {"name": "Duurzaam", "cost_factor": 1.12, "energy_saving": 0.20, "co2_reduction": 0.25, "start_shift_years": 0},
+    {"name": "Versneld verduurzamen", "cost_factor": 1.25, "energy_saving": 0.35, "co2_reduction": 0.45, "start_shift_years": -2}
+  ]
+}
