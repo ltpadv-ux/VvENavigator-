@@ -22,3 +22,12 @@ jobs:
         run: python BuildFactory/build.py doctor
       - name: Run test suite
         run: pytest -q BuildFactory/tests
+      - name: Run 34-apartment production verification
+        run: python BuildFactory/run_production_verification.py BuildFactory/data/sample_vve_34.json --output BuildFactory/artifacts/verification
+      - name: Upload verified production artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vve-navigator-production-verification
+          path: BuildFactory/artifacts/verification
+          if-no-files-found: warn
