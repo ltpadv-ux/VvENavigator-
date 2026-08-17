@@ -23,7 +23,7 @@ def test_generate_plan_indexes_cost_and_priority():
     plan = generate_plan([item], 2026, horizon_years=10, inflation_rate=0.04)
     assert [row["year"] for row in plan] == [2032, 2038]
     assert plan[0]["base_cost"] == 17500.0
-    assert plan[0]["indexed_cost"] == 22575.57
+    assert plan[0]["indexed_cost"] == 22143.08
     assert plan[0]["priority"] == 69.0
 
 
