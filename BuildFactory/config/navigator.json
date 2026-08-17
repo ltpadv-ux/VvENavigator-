@@ -3,10 +3,10 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Master Engine",
-    "build": "1.1.0"
+    "build": "1.3.0"
   },
   "modules": [
-    "Finance Engine", "MJOP Engine", "Risk Engine", "Dashboard Engine",
+    "Finance Engine", "Financial Cockpit", "MJOP Engine", "Risk Engine", "Dashboard Engine",
     "Report Engine", "DataHub", "Scenario Engine", "Power BI Export", "Excel Master Workbook"
   ],
   "defaults": {
@@ -29,7 +29,14 @@
   "export": {"schema_version": "1.0", "formats": ["JSON", "CSV", "Excel", "Power BI"], "flat_data_contract": true},
   "excel_master": {
     "enabled": true,
-    "sheets": ["Dashboard", "VvE", "Appartementen", "MJOP", "Finance", "Risico", "Instellingen", "Rapportage", "Scenario's", "Export"]
+    "sheets": ["Dashboard", "VvE", "Appartementen", "MJOP", "Finance", "Financial Cockpit", "Risico", "Instellingen", "Rapportage", "Scenario's", "Export"]
   },
-  "scenarios": {"enabled": true, "default_set": "Basis-Duurzaam-Versneld"}
+  "scenarios": {"enabled": true, "default_set": "Basis-Duurzaam-Versneld"},
+  "financial_cockpit": {
+    "enabled": true,
+    "reserve_interest": 0.01,
+    "contribution_growth": 0.02,
+    "operating_cost_growth": 0.02,
+    "liquidity_alert_below_zero": true
+  }
 }
