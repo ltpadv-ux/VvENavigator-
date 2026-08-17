@@ -1,0 +1,21 @@
+{
+  "vve": {
+    "name": "VvE Navigator Praktijkmodel 34",
+    "apartments": 34,
+    "floors": 3,
+    "reserve_fund": 223772.26,
+    "base_year": 2026
+  },
+  "components": [
+    {"component":"Buitenschilderwerk kozijnen","bouwdeel":"Gevel","quantity":980,"unit":"m2","unit_cost":42,"interval_years":6,"last_execution_year":2024,"condition_score":3,"risk_score":35,"urgency":30,"budget_impact":45},
+    {"component":"Gevelvoegen herstel","bouwdeel":"Gevel","quantity":1450,"unit":"m2","unit_cost":18,"interval_years":12,"last_execution_year":2020,"condition_score":3,"risk_score":30,"urgency":25,"budget_impact":35},
+    {"component":"Dakbedekking groot onderhoud","bouwdeel":"Dak","quantity":820,"unit":"m2","unit_cost":78,"interval_years":20,"last_execution_year":2014,"condition_score":4,"risk_score":62,"urgency":55,"budget_impact":70},
+    {"component":"Dakgoten en hemelwaterafvoer","bouwdeel":"Dak","quantity":210,"unit":"m","unit_cost":65,"interval_years":12,"last_execution_year":2021,"condition_score":3,"risk_score":28,"urgency":25,"budget_impact":25},
+    {"component":"Lift groot onderhoud","bouwdeel":"Installaties","quantity":1,"unit":"stuk","unit_cost":48000,"interval_years":15,"last_execution_year":2018,"condition_score":3,"risk_score":58,"urgency":45,"budget_impact":65},
+    {"component":"Lift jaarlijks onderhoud","bouwdeel":"Installaties","quantity":1,"unit":"jaar","unit_cost":5200,"interval_years":1,"last_execution_year":2025,"condition_score":2,"risk_score":20,"urgency":20,"budget_impact":20},
+    {"component":"Balansventilatie onderhoud","bouwdeel":"Installaties","quantity":34,"unit":"woning","unit_cost":310,"interval_years":4,"last_execution_year":2024,"condition_score":3,"risk_score":38,"urgency":35,"budget_impact":30},
+    {"component":"Algemene verlichting","bouwdeel":"Elektra","quantity":1,"unit":"post","unit_cost":12000,"interval_years":10,"last_execution_year":2022,"condition_score":2,"risk_score":18,"urgency":15,"budget_impact":20},
+    {"component":"Galerijvloeren coating","bouwdeel":"Terrein en verkeersruimten","quantity":780,"unit":"m2","unit_cost":36,"interval_years":10,"last_execution_year":2019,"condition_score":4,"risk_score":50,"urgency":45,"budget_impact":45},
+    {"component":"Binnenschilderwerk algemene ruimten","bouwdeel":"Algemene ruimten","quantity":1250,"unit":"m2","unit_cost":21,"interval_years":8,"last_execution_year":2021,"condition_score":3,"risk_score":24,"urgency":20,"budget_impact":30}
+  ]
+}
