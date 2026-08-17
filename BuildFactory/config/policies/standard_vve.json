@@ -1,0 +1,13 @@
+{
+  "name": "standard_vve",
+  "inflation_rate": 0.04,
+  "discount_rate": 0.03,
+  "horizon_years": 30,
+  "reserve_floor": 50000,
+  "risk_critical": 75,
+  "risk_high": 50,
+  "risk_normal": 25,
+  "require_quality_gate": true,
+  "require_publishable": true,
+  "scenario_set": "Basis-Duurzaam-Versneld"
+}
