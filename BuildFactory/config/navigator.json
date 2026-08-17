@@ -3,7 +3,7 @@
     "name": "VvE Navigator",
     "country": "Nederland",
     "architecture": "Master Engine",
-    "build": "0.7.0"
+    "build": "0.8.0"
   },
   "modules": [
     "Finance Engine",
@@ -11,6 +11,7 @@
     "Risk Engine",
     "Dashboard Engine",
     "Report Engine",
+    "DataHub",
     "Power BI Export",
     "Excel Master Workbook"
   ],
@@ -39,5 +40,10 @@
     "alv_report": true,
     "planning_horizon_years": 30,
     "top_decisions": 3
+  },
+  "export": {
+    "schema_version": "1.0",
+    "formats": ["JSON", "CSV", "Excel", "Power BI"],
+    "flat_data_contract": true
   }
 }
