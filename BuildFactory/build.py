@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config" / "navigator.json"
 
@@ -31,19 +31,13 @@ def cmd_init() -> int:
 
 def cmd_doctor() -> int:
     checks = {
-        "config": CONFIG.exists(),
-        "python": True,
-        "source": (ROOT / "src").exists(),
-        "tests": (ROOT / "tests").exists(),
-        "mjop_engine": (ROOT / "src" / "mjop_engine.py").exists(),
-        "finance_engine": (ROOT / "src" / "finance_engine.py").exists(),
-        "risk_engine": (ROOT / "src" / "risk_engine.py").exists(),
-        "dashboard_engine": (ROOT / "src" / "dashboard_engine.py").exists(),
-        "report_engine": (ROOT / "src" / "report_engine.py").exists(),
-        "datahub": (ROOT / "src" / "datahub.py").exists(),
-        "export_engine": (ROOT / "src" / "export_engine.py").exists(),
-        "excel_master": (ROOT / "src" / "excel_master.py").exists(),
-        "navigator_mvp": (ROOT / "src" / "navigator_mvp.py").exists(),
+        "config": CONFIG.exists(), "python": True, "source": (ROOT / "src").exists(),
+        "tests": (ROOT / "tests").exists(), "mjop_engine": (ROOT / "src" / "mjop_engine.py").exists(),
+        "finance_engine": (ROOT / "src" / "finance_engine.py").exists(), "risk_engine": (ROOT / "src" / "risk_engine.py").exists(),
+        "dashboard_engine": (ROOT / "src" / "dashboard_engine.py").exists(), "report_engine": (ROOT / "src" / "report_engine.py").exists(),
+        "datahub": (ROOT / "src" / "datahub.py").exists(), "export_engine": (ROOT / "src" / "export_engine.py").exists(),
+        "excel_master": (ROOT / "src" / "excel_master.py").exists(), "navigator_mvp": (ROOT / "src" / "navigator_mvp.py").exists(),
+        "scenario_engine": (ROOT / "src" / "scenario_engine.py").exists(),
     }
     for name, ok in checks.items():
         print(f"[{'OK' if ok else 'FAIL'}] {name}")
