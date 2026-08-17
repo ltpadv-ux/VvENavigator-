@@ -14,8 +14,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install test runner
-        run: python -m pip install --upgrade pip pytest
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r BuildFactory/requirements.txt
       - name: Run BuildFactory doctor
         run: python BuildFactory/build.py doctor
       - name: Run test suite
