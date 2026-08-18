@@ -1,6 +1,6 @@
 """Executive Risk Radar & 12-Month Outlook for the Governance Control Tower."""
 from __future__ import annotations
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from typing import Any
 
 ENGINE_VERSION="6.1.0"
@@ -12,18 +12,18 @@ def build_risk_radar(report:dict[str,Any], months:int=12)->dict[str,Any]:
     for f in forecast.get('forecasts',[]) or []:
         risk=str(f.get('risk','LAAG')).upper()
         if risk in {'MIDDEL','HOOG'}:
-            risks.append({"domain":"MANDAAT","subject":f.get('mandate_id',''),"severity":risk,"horizon_month":1 if risk=='HOOG' else 3,"signal":'; '.join(f.get('reasons',[]) or []) or 'Forecast-risico','action':'Beoordeel correctieve maatregel en mandaatplanning.'})
+            risks.append({"domain":"MANDAAT","subject":f.get('mandate_id',''),"severity":risk,"horizon_month":1 if risk=='HOOG' else 3,"signal":'; '.join(f.get('reasons',[]) or []) or 'Forecast-risico',"action":"Beoordeel correctieve maatregel en mandaatplanning."})
     for finding in compliance.get('findings',[]) or []:
         sev='HOOG' if str(finding.get('severity','')).upper()=='ROOD' else 'MIDDEL'
-        risks.append({"domain":"COMPLIANCE","subject":finding.get('mandate_id',''),"severity":sev,"horizon_month":0,"signal":'; '.join(finding.get('issues',[]) or []),'action':finding.get('escalation','Beheeractie')})
+        risks.append({"domain":"COMPLIANCE","subject":finding.get('mandate_id',''),"severity":sev,"horizon_month":0,"signal":'; '.join(finding.get('issues',[]) or []),"action":finding.get('escalation','Beheeractie')})
     open_decisions=int((reg.get('dashboard',{}) or {}).get('open_decisions',0) or 0)
     if open_decisions:
-        risks.append({"domain":"GOVERNANCE","subject":"Decision Register","severity":"MIDDEL","horizon_month":2,"signal":f'{open_decisions} open governancebesluit(en)','action':'Agendeer en rond besluiten tijdig af.'})
+        risks.append({"domain":"GOVERNANCE","subject":"Decision Register","severity":"MIDDEL","horizon_month":2,"signal":f"{open_decisions} open governancebesluit(en)","action":"Agendeer en rond besluiten tijdig af."})
     if int(alv.get('ready_for_alv',0) or 0)>0:
         risks.append({"domain":"ALV","subject":"ALV Decision Workflow","severity":"MIDDEL","horizon_month":3,"signal":f"{int(alv.get('ready_for_alv',0) or 0)} voorstel(len) gereed voor ALV","action":"Plan besluitvorming en financiële toelichting."})
-    metrics=((release.get('executive_cockpit',{}) or {}).get('key_metrics',{}) or {}); reserve=float(metrics.get('reserve',0) or 0); total_budget=float(mandates.get('total_budget',0) or 0); spent=float(mandates.get('total_spent',0) or 0)
+    metrics=((release.get('executive_cockpit',{}) or {}).get('key_metrics',{}) or {}); reserve=float(metrics.get('reserve',0) or 0); total_budget=float(mandates.get('total_budget',0) or 0)
     if total_budget>0 and reserve>0 and total_budget>reserve:
-        risks.append({"domain":"FINANCIEEL","subject":"Reserve versus mandaten","severity":"HOOG","horizon_month":6,"signal":f'Mandaatbudget EUR {total_budget:.0f} > reserve EUR {reserve:.0f}',"action":"Herijk financiering, fasering en bijdrageontwikkeling.'"})
+        risks.append({"domain":"FINANCIEEL","subject":"Reserve versus mandaten","severity":"HOOG","horizon_month":6,"signal":f"Mandaatbudget EUR {total_budget:.0f} > reserve EUR {reserve:.0f}","action":"Herijk financiering, fasering en bijdrageontwikkeling."})
     risks=sorted(risks,key=lambda x:(-SEVERITY.get(x['severity'],0),x['horizon_month']))
     months_view=[]
     for m in range(1,months+1):
