@@ -23,6 +23,8 @@ jobs:
             BuildFactory/artifacts/verification/governance-decision-register.json
             BuildFactory/artifacts/verification/alv-decision-workflow.json
             BuildFactory/artifacts/verification/alv-execution-mandates.json
+            BuildFactory/artifacts/verification/corrective-decision-workflow.json
+            BuildFactory/artifacts/verification/mandate-amendment-history.json
           key: vve-governance-state-${{ github.ref_name }}-${{ github.run_id }}
           restore-keys: |
             vve-governance-state-${{ github.ref_name }}-
@@ -46,6 +48,8 @@ jobs:
             BuildFactory/artifacts/verification/governance-decision-register.json
             BuildFactory/artifacts/verification/alv-decision-workflow.json
             BuildFactory/artifacts/verification/alv-execution-mandates.json
+            BuildFactory/artifacts/verification/corrective-decision-workflow.json
+            BuildFactory/artifacts/verification/mandate-amendment-history.json
           key: vve-governance-state-${{ github.ref_name }}-${{ github.run_id }}
       - name: Upload verified production artifacts
         if: always()
