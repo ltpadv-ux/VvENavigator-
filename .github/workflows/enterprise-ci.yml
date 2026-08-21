@@ -35,10 +35,41 @@ jobs:
           python -m pip install -r BuildFactory/requirements.txt
       - name: Run BuildFactory doctor
         run: python BuildFactory/build.py doctor
-      - name: Run test suite
-        run: pytest -q BuildFactory/tests
+      - name: Run test suite with JUnit evidence
+        run: |
+          mkdir -p BuildFactory/artifacts/verification
+          pytest -q BuildFactory/tests --junitxml=BuildFactory/artifacts/verification/pytest-junit.xml
       - name: Run 34-apartment production verification
         run: python BuildFactory/run_production_verification.py BuildFactory/data/sample_vve_34.json --output BuildFactory/artifacts/verification
+      - name: Write CI evidence manifest
+        if: always()
+        env:
+          CI_JOB_STATUS: ${{ job.status }}
+          CI_RUN_ID: ${{ github.run_id }}
+          CI_RUN_ATTEMPT: ${{ github.run_attempt }}
+          CI_SHA: ${{ github.sha }}
+          CI_REF: ${{ github.ref }}
+          CI_WORKFLOW: ${{ github.workflow }}
+          CI_EVENT: ${{ github.event_name }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          out = Path('BuildFactory/artifacts/verification')
+          out.mkdir(parents=True, exist_ok=True)
+          data = {
+              'workflow': os.environ.get('CI_WORKFLOW'),
+              'run_id': os.environ.get('CI_RUN_ID'),
+              'run_attempt': os.environ.get('CI_RUN_ATTEMPT'),
+              'commit_sha': os.environ.get('CI_SHA'),
+              'ref': os.environ.get('CI_REF'),
+              'event': os.environ.get('CI_EVENT'),
+              'job_status': os.environ.get('CI_JOB_STATUS'),
+              'junit_evidence': 'pytest-junit.xml',
+              'production_verification_dir': 'BuildFactory/artifacts/verification'
+          }
+          (out / 'ci-evidence.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
+          PY
       - name: Save governance state
         if: always()
         uses: actions/cache/save@v4
@@ -53,10 +84,10 @@ jobs:
             BuildFactory/artifacts/verification/mandate-amendment-history.json
             BuildFactory/artifacts/verification/amendment-effectiveness-report.json
           key: vve-governance-state-${{ github.ref_name }}-${{ github.run_id }}
-      - name: Upload verified production artifacts
+      - name: Upload verified production artifacts and CI evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: vve-navigator-production-verification
           path: BuildFactory/artifacts/verification
-          if-no-files-found: warn
+          if-no-files-found: error
