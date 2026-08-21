@@ -1,0 +1,16 @@
+"""Enterprise 17.9 Final Production Evidence Completion & Release Authorization Pack."""
+from __future__ import annotations
+from hashlib import sha256
+from typing import Any
+ENGINE_VERSION='17.9.0'
+REQUIRED=('ci','regression','security','disaster_recovery','excel','power_bi','documentation','rc1_evidence')
+CRITICAL=('ci','regression','security','disaster_recovery')
+def _id(*p:Any)->str:return 'GOVAUTH-'+sha256('|'.join(str(x) for x in p).encode()).hexdigest()[:12].upper()
+def authorize_release(evidence:dict[str,Any], approvals:dict[str,Any], release:dict[str,Any], rules:dict[str,Any]|None=None)->dict[str,Any]:
+ rules=rules or {}; required=tuple(rules.get('required_evidence',REQUIRED)); critical=set(rules.get('critical_evidence',CRITICAL)); target=str(release.get('commit_sha') or ''); version=str(release.get('version') or ''); tag=str(release.get('tag') or ''); rows=[]
+ for name in required:
+  raw=evidence.get(name,{}) if isinstance(evidence.get(name,{}),dict) else {'passed':bool(evidence.get(name))}; passed=bool(raw.get('passed',raw.get('closed',False))); verified=bool(raw.get('verified',passed)); ref=raw.get('evidence_ref'); sha=str(raw.get('commit_sha') or ''); aligned=(not sha) or (bool(target) and sha==target); rows.append({'evidence':name,'passed':passed,'verified':verified,'evidence_ref':ref,'commit_sha':sha or None,'commit_aligned':aligned,'critical':name in critical,'closed':passed and verified and bool(ref) and aligned})
+ open_items=[r['evidence'] for r in rows if not r['closed']]; critical_blockers=[r['evidence'] for r in rows if r['critical'] and not r['closed']]; closure=round(100*sum(r['closed'] for r in rows)/len(rows),1) if rows else 0.0
+ approval_keys=('security_owner_approved','release_owner_approved','board_go_no_go_confirmed'); approvals_ok=all(bool(approvals.get(k,False)) for k in approval_keys); identity_ok=bool(version and target and tag); complete=closure>=float(rules.get('minimum_closure_pct',100)) and not open_items and approvals_ok and identity_ok
+ decision='NO-GO' if critical_blockers else ('GO' if complete else 'HOLD'); auth_id=_id(version,target,tag,decision,closure)
+ return {'final_production_evidence_completion_release_authorization_version':ENGINE_VERSION,'authorization_pack_id':auth_id,'decision':decision,'evidence_closure_pct':closure,'evidence_matrix':rows,'critical_blockers':critical_blockers,'open_items':open_items,'release_identity_complete':identity_ok,'all_required_approvals':approvals_ok,'evidence_complete':not open_items,'production_release_authorized':decision=='GO','release_tag_allowed':decision=='GO','manual_release_required':decision=='GO','immutable_archive_required':decision=='GO','automatic_release':False,'automatic_approval':False,'authorization_pack':{'id':auth_id,'version':version,'commit_sha':target,'tag':tag,'decision':decision,'evidence_refs':{r['evidence']:r['evidence_ref'] for r in rows if r['closed']},'approvals':{k:bool(approvals.get(k,False)) for k in approval_keys}},'next_action':'Voer handmatig de goedgekeurde release uit en archiveer het authorization pack.' if decision=='GO' else ('Sluit resterend bewijs en/of goedkeuringen.' if decision=='HOLD' else 'Herstel kritieke productieblockers en herhaal de volledige evidence closure.')}
